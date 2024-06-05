@@ -85,4 +85,8 @@ import SupportIcon from './icons/IconSupport.vue'
     us by
     <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
   </WelcomeItem>
+
+  <v-btn @click="$router.push({ name: 'wiki' })">
+    <p> зайди в вики </p>
+  </v-btn>
 </template>
