@@ -3,20 +3,21 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <div class="p-3">
-        <div class="nav-elements justify-space-between d-flex align-center">
-        <nav>
-            <ul class="links">
-                <li class="nav-item">
-                    <RouterLink class="router-link"to="/wiki">Wiki</RouterLink>
-                </li>
-                <li class="nav-item">
-                    <RouterLink class="router-link"to="/wiki/about">Jugar</RouterLink>
-                </li>
-            </ul>
-        </nav>
-        <p>Login</p>
-    </div>
+    <div class="p-6">
+        <div class="flex justify-between align-center px-2">
+            <nav>
+                <ul class="links">
+                    <li class="nav-item">
+                        <RouterLink class="router-link" to="/wiki">Wiki</RouterLink>
+                    </li>
+                    <li class="nav-item">
+                        <RouterLink class="router-link" to="/wiki/about">Jugar</RouterLink>
+                    </li>
+                </ul>
+            </nav>
+            <p>Login</p>
+            
+        </div>
     </div>
 </template>
 
@@ -24,12 +25,15 @@ import { RouterLink, RouterView } from 'vue-router'
 * {
     color: white
 }
-.router-link{
+
+.router-link {
     text-decoration: none;
 }
-li{
+
+li {
     list-style: none;
 }
+
 .links {
     display: flex;
     gap: 1rem;
