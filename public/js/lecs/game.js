@@ -29,7 +29,7 @@ export class Game{
   #projectilesplayer
   #speed;
 
-  constructor(config = {}) {
+  constructor(p1char,p2char,config = {}) {
 
     let searchParams=new URLSearchParams(window.location.search)
 
@@ -57,7 +57,7 @@ export class Game{
     
     let fairGamePresence=searchParams.get("fairGame")
     let fairGameValue=fairGamePresence!=''?parseInt(fairGamePresence):fairGamePresence
-    this._initComponents(fairGameValue)
+    this._initComponents(fairGameValue,p1char,p2char)
 
     let meleeOnly=searchParams.has("meleeOnly")
     // Systems
@@ -122,7 +122,7 @@ export class Game{
     //this.#systemManager.info();
   }
 
-  _initComponents(fairGame){
+  _initComponents(fairGame,p1char,p2char){
     let arenaBounds=arenaElement.getBoundingClientRect();
 
 
@@ -135,10 +135,10 @@ export class Game{
 
 
 
-    const renderComponent1 = new RenderComponent(this.#player1Id, ["images/gat.png"], positionComponent1.asVector(), 0.2);
+    const renderComponent1 = new RenderComponent(this.#player1Id, p1char.anims, positionComponent1.asVector(), 0.4);
     this.#componentManager.addComponent(renderComponent1);
     
-    const renderComponent2 = new RenderComponent(this.#player2Id, ["images/chopper.png"], positionComponent2.asVector(), 0.2);
+    const renderComponent2 = new RenderComponent(this.#player2Id, p2char.anims, positionComponent2.asVector(), 0.2);
     this.#componentManager.addComponent(renderComponent2);
 
     

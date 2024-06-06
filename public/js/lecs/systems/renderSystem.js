@@ -1,3 +1,4 @@
+
 import { HEALTH_COMPONENT, POSITION_COMPONENT, RENDER_COMPONENT } from "../components/constants.js";
 import { BaseSystem } from "./baseSystem.js";
 
@@ -24,11 +25,13 @@ export class RenderSystem extends BaseSystem{
             const positionComponent = entityComponents[POSITION_COMPONENT];
             renderComponent.htmlElement().style.top=positionComponent.y+"px"
             renderComponent.htmlElement().style.left=positionComponent.x+"px"
-            if (!this.#player1HealthComponent.alive && renderComponent.entityId==this.#player1Id){
-                renderComponent.htmlElement().style.filter=DEATH_FILTER
+            if (!this.#player1HealthComponent.alive && renderComponent.entityId==this.#player1Id && !renderComponent.playedDeathAnim){
+                //renderComponent.htmlElement().style.filter=DEATH_FILTER
+                renderComponent.death();
             }
-            if (!this.#player2HealthComponent.alive && renderComponent.entityId==this.#player2Id){
-                renderComponent.htmlElement().style.filter=DEATH_FILTER
+            if (!this.#player2HealthComponent.alive && renderComponent.entityId==this.#player2Id && !renderComponent.playedDeathAnim){
+                //renderComponent.htmlElement().style.filter=DEATH_FILTER
+                renderComponent.death();
             }
         });
 
