@@ -20,20 +20,20 @@
         <v-row class="d-flex justify-center align-center">
             <h1>FIGHT!</h1>
         </v-row>
-        <v-row>
-            <v-col cols="12" :sm="4">
+        <v-row >
+            <v-col cols="12" :sm="4" :key="gametick">
                 <v-row class="d-flex justify-center align-center">
                     <h2>Player 1 (Nombre)</h2>
                 </v-row>
                 <v-row class="d-flex justify-center align-center">
-                    <span :key="p1data.currentHealth">{{p1Health}}/{{p1data.maxHealth}} || Mana: MAna/100 || Combo: 0</span>
+                    <span >HP: {{p1Health.currentHealth}}/{{p1Health.maxHealth}} || Mana: {{p1Mana.currentMana}}/{{ p1Mana.maxMana }} || Combo: {{ p1Melee.combo }}</span>
                 </v-row>
                 <v-row class="pt-5">
-                    <v-progress-linear color="yellow" :height="10" v-model="p1Mana" :max="p1MaxMana"></v-progress-linear>
+                    <v-progress-linear color="yellow" :height="10" v-model="p1Mana.currentMana" :max="p1Mana.maxMana"></v-progress-linear>
                 </v-row>
 
-                <v-row class="pt-5">
-                    <v-progress-linear color="green" :height="10" :model-value="p1data.currentHealth" :max="p1data.maxHealth" :key="p1data.currentHealth"></v-progress-linear>
+                <v-row class="pt-5" >
+                    <v-progress-linear color="green" :height="10" :model-value="p1Health.currentHealth" :max="p1Health.maxHealth" ></v-progress-linear>
                 </v-row>
 
                 <v-row class="d-flex justify-center align-center pt-3">
@@ -46,7 +46,7 @@
 
             <v-col cols="12" :sm="4">
                 <v-row class="d-flex justify-center align-center pb-2">
-                    <v-btn color="red" @click="console.log(p1data.currentHealth)">
+                    <v-btn color="red" @click="console.log(p1Health.currentHealth)">
                         RESET
                     </v-btn>
 
@@ -64,23 +64,23 @@
                 </v-row>
             </v-col>
 
-            <v-col cols="12" :sm="4">
+            <v-col cols="12" :sm="4" :key="gametick+1">
                 <v-row class="d-flex justify-center align-center">
                     <h2>Player 2</h2>
                 </v-row>
                 <v-row class="d-flex justify-center align-center">
-                    X/Y || Mana: MAna/100 || Combo: 0
+                    <span >HP: {{p2Health.currentHealth}}/{{p2Health.maxHealth}} || Mana: {{p2Mana.currentMana}}/{{ p2Mana.maxMana }} || Combo: {{ p2Melee.combo }}</span>
                 </v-row>
                 <v-row class="pt-5">
-                    <v-progress-linear color="yellow" :height="10" :model="p2Mana"></v-progress-linear>
+                    <v-progress-linear color="yellow" :height="10" v-model="p2Mana.currentMana" :max="p2Mana.maxMana"></v-progress-linear>
                 </v-row>
 
-                <v-row class="pt-5">
-                    <v-progress-linear color="green" :height="10" :model="p2Health"></v-progress-linear>
+                <v-row class="pt-5" >
+                    <v-progress-linear color="green" :height="10" :model-value="p1Health.currentHealth" :max="p2Health.maxHealth" ></v-progress-linear>
                 </v-row>
 
                 <v-row class="d-flex justify-center align-center pt-3">
-                    <p><strong>Arrowkeys</strong> to move, <strong>}</strong> to melee attack, <strong>{</strong>
+                    <p><strong>WASD</strong> to move, <strong>G</strong> to melee attack, <strong>H</strong>
                         to
                         throw projectile</p>
                 </v-row>
@@ -98,6 +98,7 @@
             <div class="arena-container">
                 <div class="arena" id="arenaZone">
                     <img class="arena_img" src="/images/arena.png" alt="">
+                    <img src="/images/m4a1ded.png" alt="" class="arena_img">
                 </div>
 
             </div>
@@ -117,26 +118,42 @@
     export default {
         data(){
             return{
-                p1data:[] as any,
-                p2Data:[] as any,
-                p1Health: 0,
-                p1MaxHealth:0,
+                
+                p1Health: 0 as any,
+                p1Mana: 0 as any,
+                p1Melee: 0 as any,
+                p2Health: 0 as any,
+                p2Mana: 0 as any,
+                p2Melee: 0 as any,
+                gametick: 0,
             }
         },
         mounted() {
             
             (this.$refs.gameScript as any).onload=()=>{
-                this.p1data=window.getPlayer1().filter((component:any)=>component.type=="HealthComponent")[0]
+                let player1Components=window.getPlayer1()
+                this.p1Health=player1Components.filter((component:any)=>component.type=="HealthComponent")[0]
+                this.p1Mana=player1Components.filter((component:any)=>component.type=="ManaComponent")[0]
+                this.p1Melee=player1Components.filter((component:any)=>component.type=="MeleeComponent")[0]
                 //console.log("p1 ",this.p1data.filter((component:any)=>component.type=="HealthComponent"))
-                console.log("p1 ",this.p1data.currentHealth)
-                this.p1Health=this.p1data.currentHealth
-                this.p1MaxHealth=this.p1data.maxHealth
+
+                let player2Components=window.getPlayer2()
+                this.p2Health=player2Components.filter((component:any)=>component.type=="HealthComponent")[0]
+                this.p2Mana=player2Components.filter((component:any)=>component.type=="ManaComponent")[0]
+                this.p2Melee=player2Components.filter((component:any)=>component.type=="MeleeComponent")[0]
+
+                
+                setInterval(()=>{
+                    this.gametick+=1;
+
+                },19)
             }
+            
             
         },
         methods:{
             getPlayer1Health():number{
-                let p1Health=this.p1data["HealthComponent"]
+                let p1Health=this.p1Health
                 console.log("brecv ",p1Health)
                 if (p1Health){
                     console.log("recv ",p1Health.currentHealth)

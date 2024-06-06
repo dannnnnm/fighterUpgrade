@@ -141,6 +141,8 @@ export class Game{
     const renderComponent2 = new RenderComponent(this.#player2Id, ["images/chopper.png"], positionComponent2.asVector(), 0.2);
     this.#componentManager.addComponent(renderComponent2);
 
+    
+
 
     //depende del rendercomponent
     positionComponent2.x=arenaBounds.right-renderComponent2.htmlElement().width-10;
@@ -214,5 +216,9 @@ export class Game{
 
   getPlayer1(){
     return this.#componentManager.getEntityComponents(this.#player1Id)
+  }
+
+  getPlayer2(){
+    return this.#componentManager.getEntityComponents(this.#player2Id)
   }
 }

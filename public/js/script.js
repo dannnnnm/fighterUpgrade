@@ -139,6 +139,10 @@ let game=new Game();
 window.getPlayer1=function(){
   return game.getPlayer1()
 }
+
+window.getPlayer2=function(){
+  return game.getPlayer2()
+}
 game.start();
 let resetButton=document.getElementById("resetButton")
 /*resetButton.onclick=function (btn){

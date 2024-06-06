@@ -1,16 +1,28 @@
 import { BaseComponent } from "./baseComponent.js"
 import { arenaElement } from "./constants.js"
 
-
+const animStatus={
+    AN_ATTACK:"attack",
+    AN_DIE:"die",
+    AN_IDLE:"idle",
+    AN_SPECIAL:"special",
+    AN_MOVE:"move",
+}
 
 export class RenderComponent extends BaseComponent {
     spritePath = []
+    status
+    prevStatus
     initialPosition
     scale
     #htmlComponent
 
     constructor(entityId, spriteList, initialPosition, scale = 1.0) {
         super(entityId)
+
+        this.status=animStatus.AN_IDLE
+        this.prevStatus=animStatus.AN_IDLE
+
         this.spritePath.push(spriteList)
         this.scale = scale
         this.initialPosition = initialPosition

@@ -2,15 +2,15 @@ import { BaseComponent } from "./baseComponent.js";
 
 export class ManaComponent extends BaseComponent{
     currentMana
-    #maxMana
+    maxMana
     #regenManaInterval
     isRecovering
     meleeDrainAmount = 10
     proyectileDrainAmount = 15
     constructor(entityId, maxMana=100, regenManaInterval=200){
         super(entityId)
-        this.#maxMana=maxMana
-        this.currentMana=this.#maxMana;
+        this.maxMana=maxMana
+        this.currentMana=this.maxMana;
         this.#regenManaInterval=regenManaInterval
         this.isRecovering=false
     }
@@ -43,10 +43,10 @@ export class ManaComponent extends BaseComponent{
     }
 
     get maxMana() {
-        return this.#maxMana;
+        return this.maxMana;
     }
 
     get percentage(){
-        return (this.currentMana/this.#maxMana)*100
+        return (this.currentMana/this.maxMana)*100
     }
 }

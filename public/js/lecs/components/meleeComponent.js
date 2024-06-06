@@ -7,7 +7,7 @@ export class MeleeComponent extends BaseComponent{
     #damageMin
     cooledDown
     #coolDownTime
-    #combo
+    combo
     constructor(entityId,damageMin=5,damageMax=10,coolDownTime=450){
         super(entityId)
         this.#willAttack=false;
@@ -15,7 +15,7 @@ export class MeleeComponent extends BaseComponent{
         this.#damageMax=damageMax
         this.cooledDown=true
         this.#coolDownTime=coolDownTime
-        this.#combo=0
+        this.combo=0
     }
 
 
@@ -51,8 +51,8 @@ export class MeleeComponent extends BaseComponent{
         if (this.#willAttack){
             this.#willAttack=false
             this.recoverAttack()
-            let damage=this.#damageMin+getRndInteger(this.#damageMin,this.#damageMax)*this.#combo
-            this.#combo++
+            let damage=this.#damageMin+getRndInteger(this.#damageMin,this.#damageMax)*this.combo
+            this.combo++
             return damage
         }
         return 0;
@@ -62,10 +62,10 @@ export class MeleeComponent extends BaseComponent{
     miss(){
         this.#willAttack=false
         this.recoverAttack()
-        this.#combo=0
+        this.combo=0
     }
 
     get combo(){
-        return this.#combo
+        return this.combo
     }
 }
