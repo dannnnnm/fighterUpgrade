@@ -14,15 +14,31 @@
 
         </div>
     </div>
-    <div class="justify-center principal pt-6">
-        <div class="mx-24 rounded-md bg-blue-900 p-1 p">
-            <ul >
+    <div class="justify-center principal pt-64">
+        <div class="ml-32 w-64 rounded-md bg-blue-900 p-1 p">
+            <ul>
                 <li>
                     <p class="text-2xl">- Jugador 1</p>
-                    
+                    <p class="pl-4 pt-2 pb-2">
+                        <kbd class="text-lg">↑</kbd> - Mover arriba <br>
+                        <kbd class="text-lg">↓</kbd> - Mover abajo <br>
+                        <kbd class="text-lg">←</kbd> - Mover izquierda<br>
+                        <kbd class="text-lg">→</kbd> - Mover derecha<br>
+                        <kbd class="text-lg">}</kbd> - Ataque cuerpo a cuerpo <br>
+                        <kbd class="text-lg">{</kbd> - Lanzar proyectil
+                    </p>
+
                 </li>
                 <li>
                     <p class="text-2xl">- Jugador 2</p>
+                    <p class="pl-4 pt-2 pb-2">
+                        <kbd class="text-lg">w</kbd> - Mover arriba <br>
+                        <kbd class="text-lg">a</kbd> - Mover abajo <br>
+                        <kbd class="text-lg">s</kbd> - Mover izquierda<br>
+                        <kbd class="text-lg">d</kbd> - Mover derecha<br>
+                        <kbd class="text-lg">G</kbd> - Ataque cuerpo a cuerpo <br>
+                        <kbd class="text-lg">H</kbd> - Lanzar proyectil
+                    </p>           
                 </li>
             </ul>
         </div>
