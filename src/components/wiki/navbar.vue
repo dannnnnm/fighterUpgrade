@@ -3,26 +3,39 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <div class="p-6">
+    <div class="p-5">
         <div class="flex justify-between align-center px-2">
             <nav>
-                <ul class="links">
-                    <li class="nav-item">
+                <ul class="links gap-6">
+                    <li class="nav-item hover:opacity-75">
                         <RouterLink class="router-link" to="/wiki">Wiki</RouterLink>
                     </li>
-                    <li class="nav-item">
+                    <li>
+                        <div class="linea"></div>
+                    </li>
+                    <li class="nav-item hover:opacity-75">
                         <RouterLink class="router-link" to="/wiki/about">Jugar</RouterLink>
                     </li>
                 </ul>
             </nav>
-            <p>Login</p>
-            
+            <v-btn class="nav-item" >
+                <RouterLink class="router-link" to="/wiki/about">Login</RouterLink>
+            </v-btn>
+
         </div>
     </div>
 </template>
 
 <style scoped>
+
+.linea{
+    border-left: 1px solid white;
+    height: 30px;
+    width: 0;
+    opacity: 0.7;
+}
 * {
+    background-color: var(--background-light);
     color: white
 }
 
@@ -36,6 +49,5 @@ li {
 
 .links {
     display: flex;
-    gap: 1rem;
 }
 </style>

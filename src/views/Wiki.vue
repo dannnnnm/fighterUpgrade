@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import Navbar from '@/components/wiki/navbar.vue'
+import Navbar from '@/components/wiki/navbar.vue';
+import Bienvenida from '@/components/wiki/bienvenida.vue';
 </script>
 
 <template>
-    <Navbar/>
-
+    <div>
+        <Navbar />
+    </div>
+    <div class="">
+        <Bienvenida />
+    </div>
 </template>
-<style scoped>
-* {
-    background-color: black;
-}
-</style>
+<style scoped></style>
