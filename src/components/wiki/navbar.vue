@@ -14,12 +14,12 @@ import { RouterLink, RouterView } from 'vue-router'
                         <div class="linea"></div>
                     </li>
                     <li class="nav-item hover:opacity-75">
-                        <RouterLink class="router-link" to="/wiki/about">Jugar</RouterLink>
+                        <RouterLink class="router-link" to="/about">Jugar</RouterLink>
                     </li>
                 </ul>
             </nav>
             <v-btn class="nav-item" >
-                <RouterLink class="router-link" to="/wiki/about">Login</RouterLink>
+                <RouterLink class="router-link" to="/about">Login</RouterLink>
             </v-btn>
 
         </div>
