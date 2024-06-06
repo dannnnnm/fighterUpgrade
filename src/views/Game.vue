@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { SELECTED_CHARS_KEY } from '@/data/consts';
+
+
+
 
 </script>
 
@@ -13,6 +17,12 @@
     <img src="/images/chopper.png" alt="" hidden="true">
     <img src="/images/gat.png" alt="" hidden="true">
     <img src="/images/kinball.png" alt="" hidden="true">
+    <template v-for="anim in p1anims" :key="p1anims.length">
+        <img :src="anim" alt="" hidden="true">
+    </template>
+    <template v-for="anim in p2anims" :key="p2anims.length">
+        <img :src="anim" alt="" hidden="true">
+    </template>
 
     <v-container fluid>
 
@@ -76,7 +86,7 @@
                 </v-row>
 
                 <v-row class="pt-5" >
-                    <v-progress-linear color="green" :height="10" :model-value="p1Health.currentHealth" :max="p2Health.maxHealth" ></v-progress-linear>
+                    <v-progress-linear color="green" :height="10" :model-value="p2Health.currentHealth" :max="p2Health.maxHealth" ></v-progress-linear>
                 </v-row>
 
                 <v-row class="d-flex justify-center align-center pt-3">
@@ -98,7 +108,6 @@
             <div class="arena-container">
                 <div class="arena" id="arenaZone">
                     <img class="arena_img" src="/images/arena.png" alt="">
-                    <img src="/images/m4a1ded.png" alt="" class="arena_img">
                 </div>
 
             </div>
@@ -115,6 +124,9 @@
 </template>
 
 <script lang="ts">
+
+const player1id="player1:1"
+const player2id="player2:2"
     export default {
         data(){
             return{
@@ -122,29 +134,61 @@
                 p1Health: 0 as any,
                 p1Mana: 0 as any,
                 p1Melee: 0 as any,
+                p1Position:0 as any,
+                p1Ded:false,
+                p1Moved:false,
+                p1Idling: true,
+                p1anims:[] as any[],
+
                 p2Health: 0 as any,
                 p2Mana: 0 as any,
                 p2Melee: 0 as any,
+                p2Position: 0 as any,
+                p2Ded:false,
+                p2anims:[] as any[],
+
+                p1Player: 0 as any,
+                p2Player: 0 as any,
                 gametick: 0,
             }
         },
         mounted() {
+            let matchCharactersRaw=sessionStorage.getItem(SELECTED_CHARS_KEY);
+            if (matchCharactersRaw==null){
+                alert("No hay personajes seleccionados!")
+                this.$router.push("/characterSelection");
+            }
+            console.log("Got ",matchCharactersRaw)
+            let matchCharacters=JSON.parse(matchCharactersRaw!);
+
+            this.p1anims=matchCharacters.p1.anims;
+            this.p2anims=matchCharacters.p2.anims;
+            
             
             (this.$refs.gameScript as any).onload=()=>{
+                window.startGame(matchCharacters.p1,matchCharacters.p2);
                 let player1Components=window.getPlayer1()
                 this.p1Health=player1Components.filter((component:any)=>component.type=="HealthComponent")[0]
                 this.p1Mana=player1Components.filter((component:any)=>component.type=="ManaComponent")[0]
                 this.p1Melee=player1Components.filter((component:any)=>component.type=="MeleeComponent")[0]
+                this.p1Position=player1Components.filter((component:any)=>component.type=="PositionComponent")[0]
                 //console.log("p1 ",this.p1data.filter((component:any)=>component.type=="HealthComponent"))
 
                 let player2Components=window.getPlayer2()
                 this.p2Health=player2Components.filter((component:any)=>component.type=="HealthComponent")[0]
                 this.p2Mana=player2Components.filter((component:any)=>component.type=="ManaComponent")[0]
                 this.p2Melee=player2Components.filter((component:any)=>component.type=="MeleeComponent")[0]
+                this.p2Position=player2Components.filter((component:any)=>component.type=="PositionComponent")[0]
 
+                //this.renderPlayer(player1id,"/images/chars/cyclops/idle.png")
                 
-                setInterval(()=>{
+                setInterval(async ()=>{
                     this.gametick+=1;
+
+                   
+
+                    
+                    
 
                 },19)
             }
@@ -159,7 +203,9 @@
                     console.log("recv ",p1Health.currentHealth)
                 }
                 return p1Health?p1Health.currentHealth:0
-            }
+            },
+            
+                
         },
         
     }
@@ -198,5 +244,9 @@
 
 .v-progress-linear__bar, .v-progress-linear__bar__determinate {
   transition: none;
+}
+
+.playerImg{
+    z-index: 1;
 }
 </style>
