@@ -1,5 +1,6 @@
 export const IMAGESLOCATION="/images/chars"
 export const SELECTED_CHARS_KEY="matchCharacters"
+export const RECORDS_KEY="records"
 
 export const CHARACTERS={
     p1:[
@@ -12,12 +13,14 @@ export const CHARACTERS={
         {
             name:"cyclops",
             anims:["idle.png","die.png"],
-            player:"p1"
+            player:"p1",
+            scale:0.4
         },
         {
             name:"mina",
             anims:["idle.gif"],
-            player:"p1"
+            player:"p1",
+            scale:0.3
         },
 
     ],
@@ -26,7 +29,7 @@ export const CHARACTERS={
             name:"kalisa",
             anims:["idle.gif"],
             player:"p2",
-            scale:0.5
+            scale:0.2
         },
         {
             name:"kyubey",
@@ -34,6 +37,12 @@ export const CHARACTERS={
             player:"p2",
             scale:0.1,
         },
+        {
+            name:"m16a1",
+            anims:["idle.png","die.png"],
+            player:"p2",
+            scale: 0.4,
+        }
         
     ]
 }
