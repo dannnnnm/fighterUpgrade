@@ -162,6 +162,7 @@ const defaultMusic="boombox5.m4a"
             }
         },
         mounted() {
+            this.musicPlayer.loop=true
             let matchCharactersRaw=sessionStorage.getItem(SELECTED_CHARS_KEY)!;
             
             console.log("Got ",matchCharactersRaw)
