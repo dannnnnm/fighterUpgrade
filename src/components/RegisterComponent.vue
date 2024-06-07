@@ -42,6 +42,9 @@ export default {
       if (userStore.currentUser) {
         console.log('Usuario registrado con éxito:', userStore.currentUser);
       }
+      this.$router.push("/").then(()=>{
+        this.$router.push("/auth")
+      })
     }
   }
 };

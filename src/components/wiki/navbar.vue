@@ -44,8 +44,8 @@ const logout = () => {
                 <v-btn class="nav-item" v-if="isLoggedIn" @click="logout">
                     Logout
                 </v-btn>
-                <v-btn class="nav-item">
-                    <RouterLink class="router-link" to="/auth">Login</RouterLink>
+                <v-btn class="nav-item" v-if="!isLoggedIn">
+                    <RouterLink class="router-link" to="/auth" >Login</RouterLink>
                 </v-btn>
             </div>
 
