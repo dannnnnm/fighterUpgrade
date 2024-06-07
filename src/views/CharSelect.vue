@@ -2,7 +2,7 @@
     <v-container fluid class="page text-white">
 
         <v-row justify="center" align="center" class="mb-10">
-            <h1 class="font-weight-bold">Selección de personaje</h1>
+            <h1 class="font-weight-bold text-h3 mb-5">Selección de personaje</h1>
         </v-row>
         <v-row>
             <v-col cols="12" :sm="6">

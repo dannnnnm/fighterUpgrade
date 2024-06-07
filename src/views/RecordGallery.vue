@@ -3,7 +3,7 @@
 <template>
     <v-container class="text-white page" fluid :class="{fillIfEmpty:records.length<1}">
         <v-row justify="center" align="center">
-            <h1>Historial de partidas</h1>
+            <h1 class="text-h3 font-weight-bold mb-5">Historial de partidas</h1>
         </v-row>
 
         <v-row v-if="records.length<1" align="center" justify="center" >

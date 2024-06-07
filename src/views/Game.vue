@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RECORDS_KEY, SELECTED_CHARS_KEY } from '@/data/consts';
+import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
 
 
 
@@ -165,13 +165,7 @@ const defaultMusic="boombox5.m4a"
             this.p1anims=matchCharacters.p1.anims;
             this.p2anims=matchCharacters.p2.anims;
 
-            let p1NameRaw=sessionStorage.getItem("p1Name")
-            if (p1NameRaw==null){
-                this.p1Name="Harold"
-            }
-            else{
-                this.p1Name=p1NameRaw;
-            }
+            this.p1Name=getPlayer1Name()
             
             this.preloadImages();
             (this.$refs.gameScript as any).onload=()=>{
