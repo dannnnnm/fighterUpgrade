@@ -74,9 +74,10 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
                     </v-btn>
                 </v-row>
                 <v-row class="d-flex justify-center align-center pb-2">
-                    <v-btn color="blue" @click="playMusic(defaultMusic)" class="mr-5">Default</v-btn>
+                    
                     <v-btn color="blue" @click="playMusic('Batallapkmn.mp3')" class="mr-5">Rel</v-btn>
-                    <v-btn color="blue" @click="playMusic('princess.m4a')" class="ml-5">EDM</v-btn>
+                    <v-btn color="blue" @click="playMusic(defaultMusic)" class="mr-5">Default</v-btn>
+                    <v-btn color="blue" @click="playMusic('princess.m4a')" class="">EDM</v-btn>
                 </v-row>
             </v-col>
 
@@ -168,7 +169,7 @@ const defaultMusic="boombox5.m4a"
             this.p1anims=matchCharacters.p1.anims;
             this.p2anims=matchCharacters.p2.anims;
 
-            this.p1Name=getPlayer1Name()
+            this.p1Name=getPlayer1Name();
             
             this.preloadImages();
             (this.$refs.gameScript as any).onload=()=>{
