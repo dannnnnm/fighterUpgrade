@@ -1,0 +1,35 @@
+<template>
+    <div>
+      <h2>Iniciar Sesión</h2>
+      <form @submit.prevent="login">
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" v-model="email" required>
+        </div>
+        <div>
+          <label for="password">Contraseña:</label>
+          <input type="password" v-model="password" required>
+        </div>
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        email: '',
+        password: ''
+      };
+    },
+    methods: {
+      login() {
+        // Lógica para el inicio de sesión
+        console.log('Email:', this.email);
+        console.log('Password:', this.password);
+      }
+    }
+  };
+  </script>
+  
