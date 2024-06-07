@@ -141,6 +141,10 @@ window.startGame=function(p1char,p2char){
   game=new Game(p1char,p2char)
   game.start()
 }
+window.stopGame=function(){
+  clearTimeout(game.gameUpdateId)
+  game.stop()
+}
 window.getPlayer1=function(){
   return game.getPlayer1()
 }

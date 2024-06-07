@@ -135,10 +135,10 @@ export class Game{
 
 
 
-    const renderComponent1 = new RenderComponent(this.#player1Id, p1char.anims, positionComponent1.asVector(), 0.4);
+    const renderComponent1 = new RenderComponent(this.#player1Id, p1char.anims, positionComponent1.asVector(), p1char.scale);
     this.#componentManager.addComponent(renderComponent1);
     
-    const renderComponent2 = new RenderComponent(this.#player2Id, p2char.anims, positionComponent2.asVector(), 0.2);
+    const renderComponent2 = new RenderComponent(this.#player2Id, p2char.anims, positionComponent2.asVector(), p2char.scale);
     this.#componentManager.addComponent(renderComponent2);
 
     

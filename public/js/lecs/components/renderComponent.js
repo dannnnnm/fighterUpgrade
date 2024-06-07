@@ -30,25 +30,35 @@ export class RenderComponent extends BaseComponent {
         this.scale = scale
         this.initialPosition = initialPosition
         this.#htmlComponent = document.createElement("img")
-        this.#htmlComponent.onload=()=>{
-            
-        }
+        
+
+        
+
+
+
         this.#htmlComponent.id = entityId;
         this.#htmlComponent.src = this.spritePath[0]
         this.#htmlComponent.className="playerImg"
         console.log("Sprites ",spriteList, "using ", this.spritePath[0])
         this.#htmlComponent.height = this.#htmlComponent.height * scale
         this.#htmlComponent.width = this.#htmlComponent.width * scale
-        
 
         let preexistingElement = document.getElementById(entityId)
         if (preexistingElement != null) {
             this.#htmlComponent = preexistingElement
             this.#htmlComponent.style.filter = null
+            let dimensions=this.imgToScale(this.spritePath[0])
+            this.#htmlComponent.src=this.spritePath[0]
+            this.#htmlComponent.height=dimensions.height
+            this.#htmlComponent.width=dimensions.width
+            
         }
         else {
             arenaElement.appendChild(this.#htmlComponent)
         }
+        
+
+        
 
 
         this.#htmlComponent.style.position = "absolute";
@@ -72,10 +82,34 @@ export class RenderComponent extends BaseComponent {
     death(){
         this.playedDeathAnim=true
         if (this.spritePath.length<2){
-            this.#htmlComponent.src="/images/deathdefault.gif"
+            let imgSource="/images/deathdefault.gif"
+            let image=new Image()
+            image.src=imgSource
+            image.onload = () => {
+                let dimensions = this.imgToScale(imgSource)
+                console.log("def death dime", dimensions)
+                this.#htmlComponent.src = imgSource
+                this.#htmlComponent.width = dimensions.width
+                this.#htmlComponent.height = dimensions.height
+            }
+            
         }
         else{
+            let dimensions=this.imgToScale(this.spritePath[1])
             this.#htmlComponent.src=this.spritePath[1]
+            this.#htmlComponent.width=dimensions.width
+            this.#htmlComponent.height=dimensions.height
+            
+        }
+    }
+
+    imgToScale(url){
+        let image=new Image()
+        image.src=url
+        console.log("death img dim ",image.height,image.width, image.src)
+        return {
+            height:image.height*this.scale,
+            width:image.width*this.scale
         }
     }
 
