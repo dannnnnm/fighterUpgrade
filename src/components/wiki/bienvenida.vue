@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import WikiContent from '@/components/wiki/WikiContent.vue';
+import WikiContent from '../../components/wiki/WikiContent.vue';
 </script>
 
 <template>
@@ -18,7 +18,7 @@ import WikiContent from '@/components/wiki/WikiContent.vue';
 
         </div>
     </div>
-    <div class="justify-between principal pt-64 flex">
+    <div class="justify-between principal pt-64 flex pb-8">
         <div class="ml-32 w-64 rounded-md bg-blue-900 p-1 p">
             <ul>
                 <li>
@@ -47,7 +47,7 @@ import WikiContent from '@/components/wiki/WikiContent.vue';
             </ul>
         </div>
         <div>
-            <WikiContent />
+            <WikiContent/>
         </div>
     </div>
 
