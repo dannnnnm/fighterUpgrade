@@ -1,44 +1,49 @@
 <template>
-    <div>
-      <h2>Registrar Usuario</h2>
-      <form @submit.prevent="register">
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" v-model="email" required>
-        </div>
-        <div>
-          <label for="password">Contraseña:</label>
-          <input type="password" v-model="password" required>
-        </div>
-        <div>
-          <label for="confirmPassword">Confirmar Contraseña:</label>
-          <input type="password" v-model="confirmPassword" required>
-        </div>
-        <button type="submit">Registrar</button>
-      </form>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        email: '',
-        password: '',
-        confirmPassword: ''
-      };
-    },
-    methods: {
-      register() {
-        // Lógica para el registro
-        if (this.password !== this.confirmPassword) {
-          alert('Las contraseñas no coinciden');
-          return;
-        }
-        console.log('Email:', this.email);
-        console.log('Password:', this.password);
+  <div class="flex items-center justify-center min-h-screen">
+    <form @submit.prevent="register" class="p-6 bg-white rounded shadow-md w-full max-w-sm">
+      <div>
+        <label for="username">Nombre de Usuario:</label>
+        <input type="text" v-model="username" required class="w-full mt-2 mb-4 px-3 py-2 border rounded">
+      </div>
+      <div>
+        <label for="password">Contraseña:</label>
+        <input type="password" v-model="password" required class="w-full mt-2 mb-4 px-3 py-2 border rounded">
+      </div>
+      <div>
+        <label for="confirmPassword">Confirmar Contraseña:</label>
+        <input type="password" v-model="confirmPassword" required class="w-full mt-2 mb-4 px-3 py-2 border rounded">
+      </div>
+      <button class="w-full px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700" type="submit">Registrar</button>
+    </form>
+  </div>
+</template>
+
+<script>
+import { useUserStore } from '../stores/user';
+
+export default {
+  data() {
+    return {
+      username: '',
+      password: '',
+      confirmPassword: ''
+    };
+  },
+  methods: {
+    register() {
+      if (this.password !== this.confirmPassword) {
+        alert('Las contraseñas no coinciden');
+        return;
+      }
+
+      const userStore = useUserStore();
+      userStore.register(this.username, this.password);
+
+      if (userStore.currentUser) {
+        console.log('Usuario registrado con éxito:', userStore.currentUser);
       }
     }
-  };
-  </script>
+  }
+};
+</script>
   

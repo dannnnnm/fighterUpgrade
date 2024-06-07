@@ -1,35 +1,44 @@
-import {ref, computed} from 'vue';
-import {defineStore} from 'pinia';
+import { ref, computed } from 'vue';
+import { defineStore } from 'pinia';
 
 interface User {
-    id: number;
-    username: string;
-    password: string;
+  username: string;
+  password: string;
 }
 
-const useUserStore = defineStore('user', {
-    state: () => ({
-        currentUser: null as User | null,
-    }),
-    getters: {
-        isLoggedIn: (state) => computed(() => state.currentUser !== null),
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    currentUser: null as User | null,
+  }),
+  getters: {
+    isLoggedIn: (state) => computed(() => state.currentUser !== null),
+  },
+  actions: {
+    login(username: string, password: string) {
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
+      const storedUser = users[username];
+      if (storedUser && storedUser.password === password) {
+        this.currentUser = { username, password };
+      } else {
+        console.error('Invalid username or password');
+      }
     },
-    actions: {
-        login(username: string, password: string) {
-            // Perform login logic here
-            // Example: make an API call to authenticate the user
-            // and set the currentUser state if successful
-        },
-        register(username: string, password: string) {
-            // Perform register logic here
-            // Example: make an API call to create a new user
-            // and set the currentUser state if successful
-        },
-        logout() {
-            // Perform logout logic here
-            // Example: clear the currentUser state
-        },
-    },
-});
+    register(username: string, password: string) {
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
+      if (users[username]) {
+        console.error('Username already exists');
+        return;
+      }
 
-export default useUserStore;
+      const user: User = { username, password };
+      users[username] = user;
+      localStorage.setItem('users', JSON.stringify(users));
+      this.currentUser = user;
+    },
+    logout() {
+      this.currentUser = null;
+      // Optionally, remove currentUser from localStorage
+      // localStorage.removeItem('currentUser');
+    },
+  },
+});

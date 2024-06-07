@@ -51,6 +51,11 @@ const router = createRouter({
       path: '/wiki',
       name: 'wiki',
       component: Wiki
+    },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: () => import('../views/Auth.vue')
     }
   ]
 })
