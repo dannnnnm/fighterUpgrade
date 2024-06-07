@@ -14,13 +14,13 @@ import { RouterLink, RouterView } from 'vue-router'
                         <div class="linea"></div>
                     </li>
                     <li class="nav-item hover:opacity-75">
-                        <RouterLink class="router-link" to="/about">Jugar</RouterLink>
+                        <RouterLink class="router-link" to="/characterSelection">Jugar</RouterLink>
                     </li>
                     <li>
                         <div class="linea"></div>
                     </li>
                     <li class="nav-item hover:opacity-75">  <!-- cambiar el router a ranking-->
-                        <RouterLink class="router-link" to="/about">Ranking</RouterLink>
+                        <RouterLink class="router-link" to="/records">Ranking</RouterLink>
                     </li>
                 </ul>
             </nav>
