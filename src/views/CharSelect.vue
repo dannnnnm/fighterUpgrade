@@ -17,7 +17,7 @@ import Navbar from '@/components/wiki/navbar.vue';
                 </v-row>
 
                 <v-row class="pa-5 mx-20">
-                    <v-carousel v-model="player1Index" height="250" widt="auto" show-arrows="hover">
+                    <v-carousel v-model="player1Index" height="250" width="auto" show-arrows="hover">
                         <v-carousel-item v-for="(char, i) in player1Chars" :key="i" :value="i"
                             color="rgba(0,200,255,1)">
                             <v-img :src="getCharacterMainAnim(char)">
@@ -43,7 +43,7 @@ import Navbar from '@/components/wiki/navbar.vue';
                     <v-carousel v-model="player2Index" height="250" show-arrows="hover">
                         <v-carousel-item v-for="(char, i) in player2Chars" :key="i" :value="i"
                             color="rgba(0,200,255,1)">
-                            <v-img :src="getCharacterMainAnim(char)" class="playerImg">
+                            <v-img :src="getCharacterMainAnim(char)" class="playerImg" rel="preload">
 
                             </v-img>
 
@@ -94,11 +94,15 @@ export default {
     },
     methods:{
         getCharacterMainAnim(character:any):string{
+            console.log("imgl ",IMAGESLOCATION,"charp ", character)
             return `${IMAGESLOCATION}/${character.player}/${character.name}/${character.anims[0]}`
         },
         startGame(){
-            let p1=this.setupPlayer(this.player1Chars[this.player1Index])
-            let p2=this.setupPlayer(this.player2Chars[this.player2Index])
+            let p1DataClone=JSON.parse(JSON.stringify(this.player1Chars[this.player1Index]));
+            let p2DataClone=JSON.parse(JSON.stringify(this.player2Chars[this.player2Index]));
+            
+            let p1=this.setupPlayer(p1DataClone)
+            let p2=this.setupPlayer(p2DataClone)
             let selectedChars={
                 p1,
                 p2

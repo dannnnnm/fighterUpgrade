@@ -285,6 +285,7 @@ const defaultMusic="boombox5.m4a"
                 this.$router.push('/characterSelection')
                 clearTimeout(this.timeoutId)
                 
+                
             }
             
                 
