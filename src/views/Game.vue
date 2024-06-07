@@ -159,11 +159,8 @@ const defaultMusic="boombox5.m4a"
             }
         },
         mounted() {
-            let matchCharactersRaw=sessionStorage.getItem(SELECTED_CHARS_KEY);
-            if (matchCharactersRaw==null){
-                alert("No hay personajes seleccionados!")
-                this.$router.push("/characterSelection");
-            }
+            let matchCharactersRaw=sessionStorage.getItem(SELECTED_CHARS_KEY)!;
+            
             console.log("Got ",matchCharactersRaw)
             let matchCharacters=JSON.parse(matchCharactersRaw!);
 
@@ -261,12 +258,7 @@ const defaultMusic="boombox5.m4a"
                 this.matchOver=false
             },
             getMatchCharacters(){
-                let matchCharactersRaw = sessionStorage.getItem(SELECTED_CHARS_KEY);
-                if (matchCharactersRaw == null) {
-                    alert("No hay personajes seleccionados!")
-                    this.$router.push("/characterSelection");
-                    return;
-                }
+                let matchCharactersRaw = sessionStorage.getItem(SELECTED_CHARS_KEY)!;
                 console.log("Got ", matchCharactersRaw)
                 let matchCharacters=JSON.parse(matchCharactersRaw!);
                 return matchCharacters
