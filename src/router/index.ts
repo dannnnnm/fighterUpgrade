@@ -18,7 +18,10 @@ const router = createRouter({
       beforeEnter:(to,from,next)=>{
         //TODO: check de login
         let matchCharactersRaw = sessionStorage.getItem(SELECTED_CHARS_KEY);
-        if (matchCharactersRaw == null) {
+        if (getPlayer1Name()=="No name"){
+          next({name:"auth"})
+        }
+        else if (matchCharactersRaw == null) {
           alert("No hay personajes seleccionados!")
           next({name:"charSelect"})
         }
@@ -68,6 +71,14 @@ const router = createRouter({
       component: () => import('../views/Auth.vue')
     }
   ]
+})
+
+router.beforeEach((to,from,next)=>{
+  if (to.path.includes("game")) next();
+  else{
+    sessionStorage.removeItem(SELECTED_CHARS_KEY)
+    next();
+  }
 })
 
 export default router
