@@ -21,7 +21,7 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
         <img :src="anim" alt="" hidden="true">
     </template>
     <template v-for="anim in p2anims" :key="p2anims.length">
-        <img :src="anim" alt="" hidden="true">
+        <img :src="anim" alt="" hidden="true" rel="preload">
     </template>
     
 
@@ -64,7 +64,7 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
 
                 </v-row>
                 <v-row class="d-flex justify-center align-center pb-2">
-                    <v-btn color="orange" @click="$router.push('/characterSelection')">
+                    <v-btn color="orange" @click="goToCharSelection()">
                         Characters
                     </v-btn>
                 </v-row>
@@ -158,6 +158,7 @@ const defaultMusic="boombox5.m4a"
                 gametick: 0,
 
                 matchOver:false,
+                timeoutId: 0 as any,
             }
         },
         mounted() {
@@ -173,12 +174,13 @@ const defaultMusic="boombox5.m4a"
             
             this.preloadImages();
             (this.$refs.gameScript as any).onload=()=>{
+                console.log("script listo")
                 window.startGame(matchCharacters.p1,matchCharacters.p2);
                 this.setupGame()
 
                 //this.renderPlayer(player1id,"/images/chars/cyclops/idle.png")
                 
-                setInterval(async ()=>{
+                this.timeoutId=setInterval(async ()=>{
                     this.gametick+=1;
 
                     if (!this.matchOver) {
@@ -277,6 +279,12 @@ const defaultMusic="boombox5.m4a"
                 else{
                     this.musicPlayer.pause()
                 }
+            },
+            goToCharSelection(){
+                window.stopGame()
+                this.$router.push('/characterSelection')
+                clearTimeout(this.timeoutId)
+                
             }
             
                 
