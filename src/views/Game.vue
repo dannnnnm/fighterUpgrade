@@ -23,12 +23,13 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
     <template v-for="anim in p2anims" :key="p2anims.length">
         <img :src="anim" alt="" hidden="true">
     </template>
+    
 
     <v-container fluid>
 
 
         <v-row class="d-flex justify-center align-center">
-            <h1 class="font-weight-bold">CROSSOVER FIGHT</h1>
+            <h1 class="font-weight-bold mb-5">this game 2.0</h1>
         </v-row>
         <v-row >
             <v-col cols="12" :sm="4" :key="gametick">
@@ -64,7 +65,7 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
                 </v-row>
                 <v-row class="d-flex justify-center align-center pb-2">
                     <v-btn color="orange" @click="$router.push('/characterSelection')">
-                        Change Character
+                        Characters
                     </v-btn>
                 </v-row>
                 <v-row class="d-flex justify-center align-center pb-2">

@@ -1,8 +1,14 @@
+<script setup lang="ts">
+import Navbar from '@/components/wiki/navbar.vue';
+</script>
 <template>
+    <div>
+        <Navbar />
+    </div>
     <v-container fluid class="page text-white">
-
+               
         <v-row justify="center" align="center" class="mb-10">
-            <h1 class="font-weight-bold text-h3 mb-5">Selección de personaje</h1>
+            <h1 class="font-weight-bold text-h4 mb-3">Selección de personaje</h1>
         </v-row>
         <v-row>
             <v-col cols="12" :sm="6">
@@ -58,8 +64,8 @@
         </v-row>
 
 
-        <v-row justify="center" align="center" >
-            <v-btn color="success" @click="startGame()" class="mt-5">
+        <v-row justify="center" align="center">
+            <v-btn color="success" @click="startGame()" class="mt-5" size="x-large">
                 Jugar
             </v-btn>
 
