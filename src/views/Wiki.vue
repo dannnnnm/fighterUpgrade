@@ -7,7 +7,7 @@ import Bienvenida from '@/components/wiki/bienvenida.vue';
     <div>
         <Navbar />
     </div>
-    <div class="">
+    <div>
         <Bienvenida />
     </div>
 </template>
