@@ -28,7 +28,7 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY } from '@/data/consts';
 
 
         <v-row class="d-flex justify-center align-center">
-            <h1>FIGHT!</h1>
+            <h1 class="font-weight-bold">CROSSOVER FIGHT</h1>
         </v-row>
         <v-row >
             <v-col cols="12" :sm="4" :key="gametick">
@@ -68,9 +68,9 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY } from '@/data/consts';
                     </v-btn>
                 </v-row>
                 <v-row class="d-flex justify-center align-center pb-2">
-                    <v-btn color="blue" @click="playMusic(defaultMusic)">Default</v-btn>
-                    <v-btn color="blue" @click="playMusic('Batallapkmn.mp3')">Rel</v-btn>
-                    <v-btn color="blue" @click="playMusic('princess.m4a')">EDM</v-btn>
+                    <v-btn color="blue" @click="playMusic(defaultMusic)" class="mr-5">Default</v-btn>
+                    <v-btn color="blue" @click="playMusic('Batallapkmn.mp3')" class="mr-5">Rel</v-btn>
+                    <v-btn color="blue" @click="playMusic('princess.m4a')" class="ml-5">EDM</v-btn>
                 </v-row>
             </v-col>
 
@@ -186,7 +186,7 @@ const defaultMusic="boombox5.m4a"
                     if (!this.matchOver) {
                         console.log("not over yet")
 
-                        if (this.p1Health.currentHealth < 1) {
+                        if (this.p2Health.currentHealth < 1) {
                             this.matchOver = true;
                             this.createRecord(this.p1Name,this.p1Melee.combo,this.p1Health.currentHealth,this.p1Health.maxHealth)
                         }
@@ -248,9 +248,9 @@ const defaultMusic="boombox5.m4a"
                     localStorage.setItem(RECORDS_KEY,JSON.stringify(records))
                 }
                 else{
-                    let records=JSON.parse(recordsRaw!);
+                    let records=JSON.parse(recordsRaw);
                     records.push({winner:player,combo,date:Date.now(),currentHealth,maxHealth})
-                    sessionStorage.setItem(RECORDS_KEY,JSON.stringify(records))
+                    localStorage.setItem(RECORDS_KEY,JSON.stringify(records))
                 }
                 
             },
