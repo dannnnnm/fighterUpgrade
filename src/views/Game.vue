@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SELECTED_CHARS_KEY } from '@/data/consts';
+import { RECORDS_KEY, SELECTED_CHARS_KEY } from '@/data/consts';
 
 
 
@@ -56,21 +56,21 @@ import { SELECTED_CHARS_KEY } from '@/data/consts';
 
             <v-col cols="12" :sm="4">
                 <v-row class="d-flex justify-center align-center pb-2">
-                    <v-btn color="red" @click="console.log(p1Health.currentHealth)">
+                    <v-btn color="red" @click="resetGame">
                         RESET
                     </v-btn>
 
 
                 </v-row>
                 <v-row class="d-flex justify-center align-center pb-2">
-                    <v-btn color="orange">
+                    <v-btn color="orange" @click="toggleMusic()">
                         Toggle music
                     </v-btn>
                 </v-row>
                 <v-row class="d-flex justify-center align-center pb-2">
-                    <v-btn color="blue">Default</v-btn>
-                    <v-btn color="blue">Rel</v-btn>
-                    <v-btn color="blue">EDM</v-btn>
+                    <v-btn color="blue" @click="playMusic(defaultMusic)">Default</v-btn>
+                    <v-btn color="blue" @click="playMusic('Batallapkmn.mp3')">Rel</v-btn>
+                    <v-btn color="blue" @click="playMusic('princess.m4a')">EDM</v-btn>
                 </v-row>
             </v-col>
 
@@ -127,6 +127,8 @@ import { SELECTED_CHARS_KEY } from '@/data/consts';
 
 const player1id="player1:1"
 const player2id="player2:2"
+const defaultMusic="boombox5.m4a"
+
     export default {
         data(){
             return{
@@ -135,21 +137,20 @@ const player2id="player2:2"
                 p1Mana: 0 as any,
                 p1Melee: 0 as any,
                 p1Position:0 as any,
-                p1Ded:false,
-                p1Moved:false,
-                p1Idling: true,
+                p1Name: "",
+                
                 p1anims:[] as any[],
 
                 p2Health: 0 as any,
                 p2Mana: 0 as any,
                 p2Melee: 0 as any,
                 p2Position: 0 as any,
-                p2Ded:false,
                 p2anims:[] as any[],
 
-                p1Player: 0 as any,
-                p2Player: 0 as any,
+                musicPlayer: new Audio(`/audio/${defaultMusic}`),
                 gametick: 0,
+
+                matchOver:false,
             }
         },
         mounted() {
@@ -163,29 +164,40 @@ const player2id="player2:2"
 
             this.p1anims=matchCharacters.p1.anims;
             this.p2anims=matchCharacters.p2.anims;
+
+            let p1NameRaw=sessionStorage.getItem("p1Name")
+            if (p1NameRaw==null){
+                this.p1Name="Harold"
+            }
+            else{
+                this.p1Name=p1NameRaw;
+            }
             
-            
+            this.preloadImages();
             (this.$refs.gameScript as any).onload=()=>{
                 window.startGame(matchCharacters.p1,matchCharacters.p2);
-                let player1Components=window.getPlayer1()
-                this.p1Health=player1Components.filter((component:any)=>component.type=="HealthComponent")[0]
-                this.p1Mana=player1Components.filter((component:any)=>component.type=="ManaComponent")[0]
-                this.p1Melee=player1Components.filter((component:any)=>component.type=="MeleeComponent")[0]
-                this.p1Position=player1Components.filter((component:any)=>component.type=="PositionComponent")[0]
-                //console.log("p1 ",this.p1data.filter((component:any)=>component.type=="HealthComponent"))
-
-                let player2Components=window.getPlayer2()
-                this.p2Health=player2Components.filter((component:any)=>component.type=="HealthComponent")[0]
-                this.p2Mana=player2Components.filter((component:any)=>component.type=="ManaComponent")[0]
-                this.p2Melee=player2Components.filter((component:any)=>component.type=="MeleeComponent")[0]
-                this.p2Position=player2Components.filter((component:any)=>component.type=="PositionComponent")[0]
+                this.setupGame()
 
                 //this.renderPlayer(player1id,"/images/chars/cyclops/idle.png")
                 
                 setInterval(async ()=>{
                     this.gametick+=1;
 
-                   
+                    if (!this.matchOver) {
+                        console.log("not over yet")
+
+                        if (this.p1Health.currentHealth < 1) {
+                            this.matchOver = true;
+                            this.createRecord(this.p1Name,this.p1Melee.combo,this.p1Health.currentHealth,this.p1Health.maxHealth)
+                        }
+                        if (this.p1Health.currentHealth < 1) {
+                            this.matchOver = true;
+                            this.createRecord("Invitado",this.p2Melee.combo,this.p2Health.currentHealth,this.p2Health.maxHealth)
+                        }
+                    }
+                    else {
+                        console.log("over")
+                    }
 
                     
                     
@@ -204,6 +216,75 @@ const player2id="player2:2"
                 }
                 return p1Health?p1Health.currentHealth:0
             },
+            preloadImages(){
+                this.p1anims.forEach(anim=>{
+                    var img=new Image();
+                    img.src=anim
+                })
+                this.p2anims.forEach(anim=>{
+                    var img=new Image();
+                    img.src=anim
+                })
+            },
+            setupGame(){
+
+                let player1Components=window.getPlayer1()
+                this.p1Health=player1Components.filter((component:any)=>component.type=="HealthComponent")[0]
+                this.p1Mana=player1Components.filter((component:any)=>component.type=="ManaComponent")[0]
+                this.p1Melee=player1Components.filter((component:any)=>component.type=="MeleeComponent")[0]
+                this.p1Position=player1Components.filter((component:any)=>component.type=="PositionComponent")[0]
+                //console.log("p1 ",this.p1data.filter((component:any)=>component.type=="HealthComponent"))
+
+                let player2Components=window.getPlayer2()
+                this.p2Health=player2Components.filter((component:any)=>component.type=="HealthComponent")[0]
+                this.p2Mana=player2Components.filter((component:any)=>component.type=="ManaComponent")[0]
+                this.p2Melee=player2Components.filter((component:any)=>component.type=="MeleeComponent")[0]
+                this.p2Position=player2Components.filter((component:any)=>component.type=="PositionComponent")[0]
+            },
+            createRecord(player:string,combo:string,currentHealth:number,maxHealth:number){
+                let recordsRaw=localStorage.getItem(RECORDS_KEY);
+                if (recordsRaw==null){
+                    let records=[{winner:player,combo,date:Date.now(),currentHealth,maxHealth}]
+                    localStorage.setItem(RECORDS_KEY,JSON.stringify(records))
+                }
+                else{
+                    let records=JSON.parse(recordsRaw!);
+                    records.push({winner:player,combo,date:Date.now(),currentHealth,maxHealth})
+                    sessionStorage.setItem(RECORDS_KEY,JSON.stringify(records))
+                }
+                
+            },
+            resetGame(){
+                let matchCharacters=this.getMatchCharacters()
+                window.stopGame();
+                window.startGame(matchCharacters.p1, matchCharacters.p2);
+                this.setupGame()
+                this.matchOver=false
+            },
+            getMatchCharacters(){
+                let matchCharactersRaw = sessionStorage.getItem(SELECTED_CHARS_KEY);
+                if (matchCharactersRaw == null) {
+                    alert("No hay personajes seleccionados!")
+                    this.$router.push("/characterSelection");
+                    return;
+                }
+                console.log("Got ", matchCharactersRaw)
+                let matchCharacters=JSON.parse(matchCharactersRaw!);
+                return matchCharacters
+            },
+            playMusic(name:string){
+                this.musicPlayer.pause();
+                this.musicPlayer=new Audio(`/audio/${name}`);
+                this.musicPlayer.play()
+            },
+            toggleMusic(){
+                if (this.musicPlayer.paused){
+                    this.musicPlayer.play()
+                }
+                else{
+                    this.musicPlayer.pause()
+                }
+            }
             
                 
         },
