@@ -163,6 +163,10 @@ const defaultMusic="boombox5.m4a"
         },
         mounted() {
             this.musicPlayer.loop=true
+            try{
+                this.musicPlayer.play()
+            }
+            catch(e){}
             let matchCharactersRaw=sessionStorage.getItem(SELECTED_CHARS_KEY)!;
             
             console.log("Got ",matchCharactersRaw)
