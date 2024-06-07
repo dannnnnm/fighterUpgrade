@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import WikiContent from '@/components/wiki/WikiContent.vue';
+</script>
+
 <template>
     <div class="p-6 pl-32 pt-32 font-mono principal">
         <div>
@@ -14,7 +18,7 @@
 
         </div>
     </div>
-    <div class="justify-center principal pt-64">
+    <div class="justify-between principal pt-64 flex">
         <div class="ml-32 w-64 rounded-md bg-blue-900 p-1 p">
             <ul>
                 <li>
@@ -38,9 +42,12 @@
                         <kbd class="text-lg">d</kbd> - Mover derecha<br>
                         <kbd class="text-lg">G</kbd> - Ataque cuerpo a cuerpo <br>
                         <kbd class="text-lg">H</kbd> - Lanzar proyectil
-                    </p>           
+                    </p>
                 </li>
             </ul>
+        </div>
+        <div>
+            <WikiContent />
         </div>
     </div>
 
