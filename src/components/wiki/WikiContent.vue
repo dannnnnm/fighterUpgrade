@@ -1,6 +1,6 @@
 <template>
-    <div class="contenedor-wiki bg-blue-900">
-        <div class=" p-1 mr-48 rounded-md pl-2 ">
+    <div class="contenedor-wiki ">
+        <div class=" p-1 bg-blue-900 mr-48 rounded-md pl-2 ">
             <p class="text-2xl">- Combos</p>
             <span>El juego presenta un sistema de combos, al acertar un golpe, se genera un acumulador,
                 a mayor el combo, mayor será el daño, si se falla un ataque, se pierde el combo volviendo a cero.
@@ -18,7 +18,7 @@
                     </li>
                 </ul>
         </div>
-        <div class="mods rounded-md pl-2">
+        <div class="mods rounded-md mt-8 mb-8 pl-2 bg-blue-900 mr-48 pb-2">
             <p class="text-2xl pb-2">Mods:</p>
             <ul class="space-y-3">
                 <li>bouncingBetty : Projectiles bounce off walls</li>
@@ -33,9 +33,6 @@
     </div>
 </template>
 
-<script setup>
-
-</script>
 <style scoped>
     .contenedor-wiki{
         width: 60rem;
