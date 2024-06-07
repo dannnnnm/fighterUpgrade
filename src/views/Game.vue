@@ -34,7 +34,7 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
         <v-row >
             <v-col cols="12" :sm="4" :key="gametick">
                 <v-row class="d-flex justify-center align-center">
-                    <h2>{{ p1Name }}</h2>
+                    <h2 class="font-weight-bold">{{ p1Name }}</h2>
                 </v-row>
                 <v-row class="d-flex justify-center align-center">
                     <span >HP: {{p1Health.currentHealth}}/{{p1Health.maxHealth}} || Mana: {{p1Mana.currentMana}}/{{ p1Mana.maxMana }} || Combo: {{ p1Melee.combo }}</span>
@@ -83,7 +83,7 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
 
             <v-col cols="12" :sm="4" :key="gametick+1">
                 <v-row class="d-flex justify-center align-center">
-                    <h2>Player 2</h2>
+                    <h2 class="font-weight-bold">Player 2 </h2>
                 </v-row>
                 <v-row class="d-flex justify-center align-center">
                     <span >HP: {{p2Health.currentHealth}}/{{p2Health.maxHealth}} || Mana: {{p2Mana.currentMana}}/{{ p2Mana.maxMana }} || Combo: {{ p2Melee.combo }}</span>
@@ -270,6 +270,7 @@ const defaultMusic="boombox5.m4a"
             playMusic(name:string){
                 this.musicPlayer.pause();
                 this.musicPlayer=new Audio(`/audio/${name}`);
+                this.musicPlayer.loop=true
                 this.musicPlayer.play()
             },
             toggleMusic(){
@@ -282,8 +283,11 @@ const defaultMusic="boombox5.m4a"
             },
             goToCharSelection(){
                 window.stopGame()
-                this.$router.push('/characterSelection')
                 clearTimeout(this.timeoutId)
+                this.musicPlayer.pause()
+                
+                this.$router.push('/characterSelection')
+                
                 
                 
             }
