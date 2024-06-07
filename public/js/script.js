@@ -135,11 +135,24 @@ audio.play().then(
 
 
 
-let game=new Game();
+let game;
+
+window.startGame=function(p1char,p2char){
+  game=new Game(p1char,p2char)
+  game.start()
+}
+window.stopGame=function(){
+  clearTimeout(game.gameUpdateId)
+  game.stop()
+}
 window.getPlayer1=function(){
   return game.getPlayer1()
 }
-game.start();
+
+window.getPlayer2=function(){
+  return game.getPlayer2()
+}
+//game.start();
 let resetButton=document.getElementById("resetButton")
 /*resetButton.onclick=function (btn){
                                   clearTimeout(game.gameUpdateId)

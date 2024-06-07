@@ -2,25 +2,25 @@ import { getRndInteger } from "../utils/utils.js";
 import { BaseComponent } from "./baseComponent.js";
 
 export class MeleeComponent extends BaseComponent{
-    #willAttack
+    willAttack
     #damageMax
     #damageMin
     cooledDown
     #coolDownTime
-    #combo
+    combo
     constructor(entityId,damageMin=5,damageMax=10,coolDownTime=450){
         super(entityId)
-        this.#willAttack=false;
+        this.willAttack=false;
         this.#damageMin=damageMin
         this.#damageMax=damageMax
         this.cooledDown=true
         this.#coolDownTime=coolDownTime
-        this.#combo=0
+        this.combo=0
     }
 
 
     prepared(){
-        return this.#willAttack
+        return this.willAttack
     }
 
     recoverAttack(){
@@ -34,25 +34,25 @@ export class MeleeComponent extends BaseComponent{
     prepareAttack(){
         //console.log("on preparing...", this)
         if(this.cooledDown){
-            this.#willAttack=true
+            this.willAttack=true
             this.cooledDown=false
         }
         
     }
 
     forceUnprepare(){
-        this.#willAttack=false;
+        this.willAttack=false;
         this.cooledDown=true
     }
 
 
 
     attack(){
-        if (this.#willAttack){
-            this.#willAttack=false
+        if (this.willAttack){
+            this.willAttack=false
             this.recoverAttack()
-            let damage=this.#damageMin+getRndInteger(this.#damageMin,this.#damageMax)*this.#combo
-            this.#combo++
+            let damage=this.#damageMin+getRndInteger(this.#damageMin,this.#damageMax)*this.combo
+            this.combo++
             return damage
         }
         return 0;
@@ -60,12 +60,12 @@ export class MeleeComponent extends BaseComponent{
 
 
     miss(){
-        this.#willAttack=false
+        this.willAttack=false
         this.recoverAttack()
-        this.#combo=0
+        this.combo=0
     }
 
     get combo(){
-        return this.#combo
+        return this.combo
     }
 }

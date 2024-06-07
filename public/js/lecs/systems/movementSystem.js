@@ -11,6 +11,7 @@ export class MovementSystem extends BaseSystem{
 
     update(){
         this.componentManager.getComponentsByType(POSITION_COMPONENT).forEach((positionComponent) => {
+            positionComponent.moving=positionComponent.velocity.x!=0 || positionComponent.velocity.y!=0
             let normalizedVelocityVector=positionComponent.velocity.normalized()
             if (this.#doomMove) normalizedVelocityVector=positionComponent.velocity
             if (positionComponent.velocity.x!=0){
@@ -23,6 +24,8 @@ export class MovementSystem extends BaseSystem{
                 positionComponent.y+=normalizedVelocityVector.normalized().y*positionComponent.movementSpeed;
                 if (positionComponent.inputControlled) positionComponent.velocity.y=0;
             }
+        
+            
         });
     }
 }
