@@ -33,7 +33,7 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
         <v-row >
             <v-col cols="12" :sm="4" :key="gametick">
                 <v-row class="d-flex justify-center align-center">
-                    <h2>Player 1 (Nombre)</h2>
+                    <h2>{{ p1Name }}</h2>
                 </v-row>
                 <v-row class="d-flex justify-center align-center">
                     <span >HP: {{p1Health.currentHealth}}/{{p1Health.maxHealth}} || Mana: {{p1Mana.currentMana}}/{{ p1Mana.maxMana }} || Combo: {{ p1Melee.combo }}</span>
@@ -61,6 +61,11 @@ import { RECORDS_KEY, SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
                     </v-btn>
 
 
+                </v-row>
+                <v-row class="d-flex justify-center align-center pb-2">
+                    <v-btn color="orange" @click="$router.push('/characterSelection')">
+                        Change Character
+                    </v-btn>
                 </v-row>
                 <v-row class="d-flex justify-center align-center pb-2">
                     <v-btn color="orange" @click="toggleMusic()">
