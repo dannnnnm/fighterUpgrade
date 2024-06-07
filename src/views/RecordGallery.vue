@@ -29,6 +29,8 @@
 
 
 <script lang="ts">
+import { RECORDS_KEY } from '@/data/consts';
+
 export default{
     data(){
         return{
@@ -38,7 +40,7 @@ export default{
     mounted(){
         let retrievedRecords=localStorage.getItem(RECORDS_KEY);
         if (retrievedRecords!=null){
-            records=JSON.parse(retrievedRecords)
+            this.records=JSON.parse(retrievedRecords)
         }
     },
     methods:{
