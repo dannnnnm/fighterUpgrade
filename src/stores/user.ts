@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
+import { SetPlayer1Name } from '@/data/consts';
 
 interface User {
   username: string;
@@ -19,6 +20,7 @@ export const useUserStore = defineStore('user', {
       const storedUser = users[username];
       if (storedUser && storedUser.password === password) {
         this.currentUser = { username, password };
+        SetPlayer1Name(username);
       } else {
         console.error('Invalid username or password');
       }
@@ -37,6 +39,7 @@ export const useUserStore = defineStore('user', {
     },
     logout() {
       this.currentUser = null;
+      SetPlayer1Name("No name");
       // Optionally, remove currentUser from localStorage
       // localStorage.removeItem('currentUser');
     },
