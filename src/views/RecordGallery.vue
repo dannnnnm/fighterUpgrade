@@ -1,20 +1,20 @@
 
 
 <template>
-    <v-container fluid>
+    <v-container class="text-white page" fluid :class="{fillIfEmpty:records.length<1}">
         <v-row justify="center" align="center">
-            <h1>Historial de partidas</h1>
+            <h1 class="text-h3 font-weight-bold mb-5">Historial de partidas</h1>
         </v-row>
 
-        <v-row v-if="records.length<1" align="center" justify="center">
+        <v-row v-if="records.length<1" align="center" justify="center" >
             <h1 class="font-weight-bold">No hay partidas registradas</h1>
         </v-row>
-        <v-row v-else v-for="(record,index) in records">
-            <v-card>
+        <v-row v-else v-for="(record,index) in records" justify="center" align="center" class="mb-5 mx-10">
+            <v-card color="rgba(0,200,255,1)">
                 <v-card-title>
                     Combate el {{ getDateAsText(record.date) }}
                 </v-card-title>
-                <v-card-subtitle>
+                <v-card-subtitle class="text-black" align="center" justify="center">
                     Ganador: {{ record.winner }}
                 </v-card-subtitle>
                 <v-card-text>
@@ -41,6 +41,7 @@ export default{
         let retrievedRecords=localStorage.getItem(RECORDS_KEY);
         if (retrievedRecords!=null){
             this.records=JSON.parse(retrievedRecords)
+            console.log("received ",this.records)
         }
     },
     methods:{
@@ -50,3 +51,13 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+.page{
+    background-color: blue;
+
+}
+.fill-if-empty{
+    height: 100vh;
+}
+</style>
