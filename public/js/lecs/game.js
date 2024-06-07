@@ -1,5 +1,5 @@
 import { CollisionComponent } from "./components/collisionComponent.js";
-import { RENDER_COMPONENT, arenaElement } from "./components/constants.js";
+import { RENDER_COMPONENT} from "./components/constants.js";
 import { HealthComponent } from "./components/healthComponent.js";
 import { ManaComponent } from "./components/manaComponent.js";
 import { MeleeComponent } from "./components/meleeComponent.js";
@@ -123,7 +123,7 @@ export class Game{
   }
 
   _initComponents(fairGame,p1char,p2char){
-    let arenaBounds=arenaElement.getBoundingClientRect();
+    let arenaBounds=document.getElementById("arenaZone").getBoundingClientRect();
 
 
 
@@ -211,6 +211,7 @@ export class Game{
   stop(){
     this.#componentManager.getComponentsByType(RENDER_COMPONENT).forEach(renderComp=>{
       renderComp.invisible()
+      renderComp.cleanup()
     })
   }
 

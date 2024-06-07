@@ -1,5 +1,5 @@
 import { BaseComponent } from "./baseComponent.js"
-import { arenaElement } from "./constants.js"
+
 
 const animStatus={
     AN_ATTACK:"attack",
@@ -22,7 +22,10 @@ export class RenderComponent extends BaseComponent {
     constructor(entityId, spriteList, initialPosition, scale = 1.0) {
         super(entityId)
 
+
         this.playedDeathAnim=false
+
+        
 
         this.status=animStatus.AN_IDLE
         this.prevStatus=animStatus.AN_IDLE
@@ -39,12 +42,14 @@ export class RenderComponent extends BaseComponent {
         this.#htmlComponent.id = entityId;
         this.#htmlComponent.src = this.spritePath[0]
         this.#htmlComponent.className="playerImg"
+        this.#htmlComponent.rel="preload"
         console.log("Sprites ",spriteList, "using ", this.spritePath[0])
         this.#htmlComponent.height = this.#htmlComponent.height * scale
         this.#htmlComponent.width = this.#htmlComponent.width * scale
 
         let preexistingElement = document.getElementById(entityId)
         if (preexistingElement != null) {
+            console.log("preexisting")
             this.#htmlComponent = preexistingElement
             this.#htmlComponent.style.filter = null
             let dimensions=this.imgToScale(this.spritePath[0])
@@ -54,7 +59,9 @@ export class RenderComponent extends BaseComponent {
             
         }
         else {
-            arenaElement.appendChild(this.#htmlComponent)
+            console.log("not preexising", this.#htmlComponent)
+            let innerArenaElement=document.getElementById("arenaZone")
+            innerArenaElement.appendChild(this.#htmlComponent)
         }
         
 
@@ -114,8 +121,12 @@ export class RenderComponent extends BaseComponent {
     }
 
     flip(x){
-        console.log("flippd")
+        
         this.#htmlComponent.style.transform=`scaleX(${x})`;
+    }
+
+    cleanup(){
+        //document.removeChild(this.#htmlComponent.parentNode)
     }
 
     

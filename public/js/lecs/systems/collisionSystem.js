@@ -1,4 +1,4 @@
-import { COLLISION_COMPONENT, HEALTH_COMPONENT, OWNER_COMPONENT, POSITION_COMPONENT, RENDER_COMPONENT, arenaElement } from "../components/constants.js";
+import { COLLISION_COMPONENT, HEALTH_COMPONENT, OWNER_COMPONENT, POSITION_COMPONENT, RENDER_COMPONENT } from "../components/constants.js";
 import { PositionComponent } from "../components/positionComponent.js";
 import { MOVEMENT_SPEED } from "../game.js";
 import { getRndInteger, playSound } from "../utils/utils.js";
@@ -17,8 +17,11 @@ export class CollisionSystem extends BaseSystem{
     #staticBetty
     #risingTension
     #repelPhys
+    arenaElement
     constructor(player1Id,player2Id,componentManager,config={},logger){
+        
         super(componentManager,logger)
+        this.arenaElement=document.getElementById("arenaZone")
         this.#player1Collisions=this.componentManager.getEntityComponentByType(player1Id,COLLISION_COMPONENT)
         this.#player2Collisions=this.componentManager.getEntityComponentByType(player2Id,COLLISION_COMPONENT)
         this.#player1Position=this.componentManager.getEntityComponentByType(player1Id,POSITION_COMPONENT)
@@ -47,11 +50,11 @@ export class CollisionSystem extends BaseSystem{
 
         this._OOBFailsafe(positionComponent,collisionComponent);
 
-        if (futureX<arenaElement.getBoundingClientRect().left || futureX+collisionComponent.width>arenaElement.getBoundingClientRect().right){
+        if (futureX<this.arenaElement.getBoundingClientRect().left || futureX+collisionComponent.width>this.arenaElement.getBoundingClientRect().right){
             positionComponent.velocity.x=0;
             result=false
         }
-        if (futureY<arenaElement.getBoundingClientRect().top || futureY+collisionComponent.height>arenaElement.getBoundingClientRect().bottom){
+        if (futureY<this.arenaElement.getBoundingClientRect().top || futureY+collisionComponent.height>this.arenaElement.getBoundingClientRect().bottom){
             positionComponent.velocity.y=0;
             result=false
         }
@@ -68,10 +71,10 @@ export class CollisionSystem extends BaseSystem{
 
         
         //TODO: función de OOB especial para projectiles, eliminarlos si es necesario
-        if (futureX<arenaElement.getBoundingClientRect().left || futureX+collisionComponent.width>arenaElement.getBoundingClientRect().right){
+        if (futureX<this.arenaElement.getBoundingClientRect().left || futureX+collisionComponent.width>this.arenaElement.getBoundingClientRect().right){
             result=false
         }
-        if (futureY<arenaElement.getBoundingClientRect().top || futureY+collisionComponent.height>arenaElement.getBoundingClientRect().bottom){
+        if (futureY<this.arenaElement.getBoundingClientRect().top || futureY+collisionComponent.height>this.arenaElement.getBoundingClientRect().bottom){
             result=false
         }
 
@@ -82,7 +85,7 @@ export class CollisionSystem extends BaseSystem{
     }
 
     _OOBFailsafe(positionComponent,collisionComponent){
-        let arenaBounds=arenaElement.getBoundingClientRect()
+        let arenaBounds=this.arenaElement.getBoundingClientRect()
         if (positionComponent.x<arenaBounds.left || positionComponent.x+collisionComponent.width>arenaBounds.right){
             positionComponent.x=getRndInteger(arenaBounds.left+10,arenaBounds.right-10)    
         }
@@ -156,7 +159,7 @@ export class CollisionSystem extends BaseSystem{
             let projectileRenderComponent=this.componentManager.getEntityComponentByType(ownerComponent.entityId,RENDER_COMPONENT)
             if (!this._projectileInbounds(projectilePositionComponent,projectileCollisionComponent)){
                 if(this.#bouncingBetty){
-                    this._bounceProjectile(ownerComponent,projectilePositionComponent,projectileCollisionComponent,projectileRenderComponent,arenaElement.getBoundingClientRect())
+                    this._bounceProjectile(ownerComponent,projectilePositionComponent,projectileCollisionComponent,projectileRenderComponent,this.arenaElement.getBoundingClientRect())
                     
                     playSound("audio/bounce.wav",0.2)
                 }

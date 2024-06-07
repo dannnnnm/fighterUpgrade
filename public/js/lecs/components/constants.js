@@ -13,4 +13,4 @@ export const MANA_COMPONENT = "ManaComponent";
 
 
 
-export const arenaElement = document.getElementById("arenaZone")
+//export const arenaElement = document.getElementById("arenaZone")
