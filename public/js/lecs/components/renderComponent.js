@@ -113,6 +113,11 @@ export class RenderComponent extends BaseComponent {
         }
     }
 
+    flip(x){
+        console.log("flippd")
+        this.#htmlComponent.style.transform=`scaleX(${x})`;
+    }
+
     
 }
 

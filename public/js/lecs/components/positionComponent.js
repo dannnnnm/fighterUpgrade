@@ -39,6 +39,9 @@ export class FacingDirection{
     get facingDirectionVector(){
         return this.#innerVector
     }
+    get x(){
+        return this.#innerVector.x
+    }
 }
 
 
@@ -50,7 +53,7 @@ export class PositionComponent extends BaseComponent{
     inputControlled;
     direction
     moving
-    constructor(entityId,x,y,movementSpeed=MOVEMENT_SPEED,inputControlled=false) {
+    constructor(entityId,x,y,facingDirection=FacingDirection.RIGHT,movementSpeed=MOVEMENT_SPEED,inputControlled=false) {
         super(entityId)
         this.moving=false
         this.x=x
@@ -58,7 +61,8 @@ export class PositionComponent extends BaseComponent{
         this.inputControlled=inputControlled
         this.velocity=new Vector2D();
         this.movementSpeed=movementSpeed
-        this.direction=FacingDirection.RIGHT
+        this.direction=facingDirection
+        console.log("iniitial direction ", facingDirection)
         
     }
 

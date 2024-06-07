@@ -120,7 +120,7 @@ export class AttackSystem extends BaseSystem {
             projectilePositionComponent.velocity = direction;
             this.componentManager.addComponent(projectilePositionComponent)
 
-            let projectileRenderComponent = new RenderComponent(projectileId, ["images/kinball.png"], projectilePositionComponent.asVector(), 0.05)
+            let projectileRenderComponent = new RenderComponent(projectileId, ["images/kinball.png"], projectilePositionComponent.asVector(), 0.04)
             this.componentManager.addComponent(projectileRenderComponent)
 
             let projectileSpriteDimensions = projectileRenderComponent.htmlElement();

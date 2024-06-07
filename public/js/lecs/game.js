@@ -3,7 +3,7 @@ import { RENDER_COMPONENT, arenaElement } from "./components/constants.js";
 import { HealthComponent } from "./components/healthComponent.js";
 import { ManaComponent } from "./components/manaComponent.js";
 import { MeleeComponent } from "./components/meleeComponent.js";
-import { PositionComponent } from "./components/positionComponent.js";
+import { FacingDirection, PositionComponent } from "./components/positionComponent.js";
 import { ProjectileComponent } from "./components/projectileComponent.js";
 import { RenderComponent } from "./components/renderComponent.js";
 import { ComponentManager } from "./managers/componentManager.js";
@@ -127,10 +127,10 @@ export class Game{
 
 
 
-    const positionComponent1 = new PositionComponent(this.#player1Id, arenaBounds.left+10, arenaBounds.top+10,MOVEMENT_SPEED,true);
+    const positionComponent1 = new PositionComponent(this.#player1Id, arenaBounds.left+10, arenaBounds.top+10,FacingDirection.RIGHT,MOVEMENT_SPEED,true);
     this.#componentManager.addComponent(positionComponent1);
 
-    const positionComponent2 = new PositionComponent(this.#player2Id, 100, 75,MOVEMENT_SPEED,true);
+    const positionComponent2 = new PositionComponent(this.#player2Id, 100, 75,FacingDirection.LEFT,MOVEMENT_SPEED,true);
     
 
 

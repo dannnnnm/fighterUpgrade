@@ -25,6 +25,14 @@ export class RenderSystem extends BaseSystem{
             const positionComponent = entityComponents[POSITION_COMPONENT];
             renderComponent.htmlElement().style.top=positionComponent.y+"px"
             renderComponent.htmlElement().style.left=positionComponent.x+"px"
+
+            let playerNum=renderComponent.entityId==this.#player2Id?-1:1
+            if (positionComponent.direction.x==-1){
+                renderComponent.flip(-1*playerNum)
+            }
+            else if (positionComponent.direction.x==1){
+                renderComponent.flip(1*playerNum)
+            }
             if (!this.#player1HealthComponent.alive && renderComponent.entityId==this.#player1Id && !renderComponent.playedDeathAnim){
                 //renderComponent.htmlElement().style.filter=DEATH_FILTER
                 renderComponent.death();
