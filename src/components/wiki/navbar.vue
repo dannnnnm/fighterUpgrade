@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
-import { getPlayer1Name } from '../../data/consts.ts';
+import { SetPlayer1Name, getPlayer1Name } from '../../data/consts.ts';
 
 let isLoggedIn = ref(false);
 
 onMounted(() => {
-    isLoggedIn.value = getPlayer1Name() !== false;
+    isLoggedIn.value = getPlayer1Name() !== "No name";
 });
+const logout = () => {
+    SetPlayer1Name("No name");
+    isLoggedIn.value = false;
+}
 
 </script>
 

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import Wiki from '../views/Wiki.vue';
 import path from 'path';
-import { SELECTED_CHARS_KEY } from '@/data/consts';
+import { SELECTED_CHARS_KEY, getPlayer1Name } from '@/data/consts';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +34,16 @@ const router = createRouter({
     {
       path: '/characterSelection',
       name: 'charSelect',
+      beforeEnter:(to,from,next)=>{
+        let userStore = getPlayer1Name();
+        if(userStore=="No name"){
+          alert("Necesitas iniciar sesión para seleccionar personajes")
+          next({name: "auth"})
+        }
+        else{
+          next()
+        }
+      },
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
