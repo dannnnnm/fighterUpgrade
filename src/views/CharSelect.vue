@@ -104,7 +104,7 @@ export default {
                 query.bouncingBetty=true
             }
             if (this.picks.includes("bouncingBetty") && this.picks.includes("risingTension")){
-                query.risingTension=true
+                query.risingTension=2
             }
             if(this.picks.includes("fairGame")){
                 query.fairGame=100
